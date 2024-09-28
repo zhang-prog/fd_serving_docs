@@ -24,9 +24,9 @@
 
 - **`infer`**
 
-    对图像进行语义分割。
+    对图像进行目标检测。
 
-    `POST /semantic-segmentation`
+    `POST /object-detection`
 
     - 请求体的属性如下：
 
@@ -38,27 +38,68 @@
 
         |名称|类型|含义|
         |-|-|-|
-        |`labelMap`|`array`|记录图像中每个像素的类别标签（按照行优先顺序排列）。|
-        |`size`|`array`|图像形状。数组中元素依次为图像的高度和宽度。|
-        |`image`|`string`|语义分割结果图。图像为JPEG格式，使用Base64编码。|
+        |`detectedObjects`|`array`|目标的位置、类别等信息。|
+        |`image`|`string`|目标检测结果图。图像为JPEG格式，使用Base64编码。|
+
+        `detectedObjects`中的每个元素为一个`object`，具有如下属性：
+
+        |名称|类型|含义|
+        |-|-|-|
+        |`bbox`|`array`|目标位置。数组中元素依次为边界框左上角x坐标、左上角y坐标、右下角x坐标以及右下角y坐标。|
+        |`categoryId`|`integer`|目标类别ID。|
+        |`score`|`number`|目标得分。|
 
         `result`示例如下：
 
         ```json
         {
-          "labelMap": [
-            0,
-            0,
-            1,
-            2
-          ],
-          "size": [
-            2,
-            2
+          "detectedObjects": [
+            {
+              "bbox": [
+                404.4967956542969,
+                90.15770721435547,
+                506.2465515136719,
+                285.4187316894531
+              ],
+              "categoryId": 0,
+              "score": 0.7418514490127563
+            },
+            {
+              "bbox": [
+                155.33145141601562,
+                81.10954284667969,
+                199.71136474609375,
+                167.4235382080078
+              ],
+              "categoryId": 1,
+              "score": 0.7328268885612488
+            }
           ],
           "image": "xxxxxx"
         }
         ```
+
+- **`legacyInfer`**（过时）
+
+    对图像进行目标检测。
+
+    `POST /objectdetection`
+
+    - 请求体的属性如下：
+
+        |名称|类型|含义|是否必填|
+        |-|-|-|-|
+        |`imageUrl`|`string`|服务可访问的图像文件的URL。与`image`互斥。|否|
+        |`image`|`string`|图像文件内容的Base64编码结果。与`imageUrl`互斥。|否|
+
+    - 请求处理成功时，响应体的`result`具有如下属性：
+
+        |名称|类型|含义|
+        |-|-|-|
+        |`bboxResult`|`array`|目标的位置、类别等信息。|
+        |`image`|`string`|目标检测结果图。图像为JPEG格式，使用Base64编码。|
+
+    - **该操作现已不被推荐使用。在新项目中，请使用`infer`操作。**
 
 </details>
 
@@ -72,7 +113,7 @@
 import base64
 import requests
 
-API_URL = "http://localhost:8080/semantic-segmentation" # 服务URL
+API_URL = "http://localhost:8080/object-detection" # 服务URL
 image_path = "./demo.jpg"
 output_image_path = "./out.jpg"
 
@@ -92,7 +133,8 @@ result = response.json()["result"]
 with open(output_image_path, "wb") as file:
     file.write(base64.b64decode(result["image"]))
 print(f"Output image saved to {output_image_path}")
-# result.labelMap 记录图像中每个像素的类别标签（按照行优先顺序排列）详见API参考文档：api_ref.md
+print("\nDetectedobjects:")
+print(result["detectedObjects"])
 ```
   
 </details>
@@ -133,7 +175,7 @@ int main() {
     std::string body = jsonObj.dump();
 
     // 调用API
-    auto response = client.Post("/semantic-segmentation", headers, body, "application/json");
+    auto response = client.Post("/object-detection", headers, body, "application/json");
     // 处理接口返回数据
     if (response && response->status == 200) {
         nlohmann::json jsonResponse = nlohmann::json::parse(response->body);
@@ -147,9 +189,14 @@ int main() {
             outputImage.write(reinterpret_cast<char*>(decodedImage.data()), decodedImage.size());
             outputImage.close();
             std::cout << "Output image saved to " << outPutImagePath << std::endl;
-            // result.labelMap 记录图像中每个像素的类别标签（按照行优先顺序排列）详见API参考文档：api_ref.md
         } else {
             std::cerr << "Unable to open file for writing: " << outPutImagePath << std::endl;
+        }
+
+        auto detectedObjects = result["detectedObjects"];
+        std::cout << "\nDetectedobjects:" << std::endl;
+        for (const auto& category : detectedObjects) {
+            std::cout << category << std::endl;
         }
     } else {
         std::cout << "Failed to send HTTP request." << std::endl;
@@ -178,7 +225,7 @@ import java.util.Base64;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        String API_URL = "https://localhost:8080/semantic-segmentation"; // 服务URL
+        String API_URL = "https://localhost:8080/object-detection"; // 服务URL
         String imagePath = "./demo.jpg"; // 本地图像
         String outputImagePath = "./out.jpg"; // 输出图像
 
@@ -207,14 +254,14 @@ public class Main {
                 JsonNode resultNode = objectMapper.readTree(responseBody);
                 JsonNode result = resultNode.get("result");
                 String base64Image = result.get("image").asText();
-                JsonNode labelMap = result.get("labelMap");
+                JsonNode detectedObjects = result.get("detectedObjects");
 
                 byte[] imageBytes = Base64.getDecoder().decode(base64Image);
                 try (FileOutputStream fos = new FileOutputStream(outputImagePath)) {
                     fos.write(imageBytes);
                 }
                 System.out.println("Output image saved to " + outputImagePath);
-                // result.labelMap 记录图像中每个像素的类别标签（按照行优先顺序排列）详见API参考文档：api_ref.md
+                System.out.println("\nDetectedobjects: " + detectedObjects.toString());
             } else {
                 System.err.println("Request failed with code: " + response.code());
             }
@@ -241,7 +288,7 @@ import (
 )
 
 func main() {
-	API_URL := "https://localhost:8080/semantic-segmentation"
+	API_URL := "https://localhost:8080/object-detection"
 	imagePath := "./demo.jpg"
 	outputImagePath := "./out.jpg"
 
@@ -284,7 +331,7 @@ func main() {
 	type Response struct {
 		Result struct {
 			Image      string   `json:"image"`
-			Labelmap []map[string]interface{} `json:"labelMap"`
+			Detectedobjects []map[string]interface{} `json:"detectedObjects"`
 		} `json:"result"`
 	}
 	var respData Response
@@ -305,7 +352,10 @@ func main() {
 		return
 	}
 	fmt.Printf("Image saved to %s.jpg\n", outputImagePath)
-	// result.labelMap 记录图像中每个像素的类别标签（按照行优先顺序排列）详见API参考文档：api_ref.md
+	fmt.Println("\nDetectedobjects:")
+	for _, category := range respData.Result.Detectedobjects {
+		fmt.Println(category)
+	}
 }
 ```
   
@@ -325,7 +375,7 @@ using Newtonsoft.Json.Linq;
 
 class Program
 {
-    static readonly string API_URL = "https://localhost:8080/semantic-segmentation";
+    static readonly string API_URL = "https://localhost:8080/object-detection";
     static readonly string imagePath = "./demo.jpg";
     static readonly string outputImagePath = "./out.jpg";
 
@@ -353,7 +403,8 @@ class Program
 
         File.WriteAllBytes(outputImagePath, outputImageBytes);
         Console.WriteLine($"Output image saved to {outputImagePath}");
-        // result.labelMap 记录图像中每个像素的类别标签（按照行优先顺序排列）详见API参考文档：api_ref.md
+        Console.WriteLine("\nDetectedobjects:");
+        Console.WriteLine(jsonResponse["result"]["detectedObjects"].ToString());
     }
 }
 ```
@@ -367,7 +418,7 @@ class Program
 const axios = require('axios');
 const fs = require('fs');
 
-const API_URL = 'https://localhost:8080/semantic-segmentation'
+const API_URL = 'https://localhost:8080/object-detection'
 const imagePath = './demo.jpg'
 const outputImagePath = "./out.jpg";
 
@@ -396,7 +447,8 @@ axios.request(config)
       if (err) throw err;
       console.log(`Output image saved to ${outputImagePath}`);
     });
-    // result.labelMap 记录图像中每个像素的类别标签（按照行优先顺序排列）详见API参考文档：api_ref.md
+    console.log("\nDetectedobjects:");
+    console.log(result["detectedObjects"]);
 })
 .catch((error) => {
   console.log(error);
@@ -411,7 +463,7 @@ axios.request(config)
 ```php
 <?php
 
-$API_URL = "http://localhost:8080/semantic-segmentation"; // 服务URL
+$API_URL = "http://localhost:8080/object-detection"; // 服务URL
 $image_path = "./demo.jpg";
 $output_image_path = "./out.jpg";
 
@@ -431,7 +483,9 @@ curl_close($ch);
 $result = json_decode($response, true)["result"];
 file_put_contents($output_image_path, base64_decode($result["image"]));
 echo "Output image saved to " . $output_image_path . "\n";
-// result.labelMap 记录图像中每个像素的类别标签（按照行优先顺序排列）详见API参考文档：api_ref.md
+echo "\nDetectedobjects:\n";
+print_r($result["detectedObjects"]);
+
 ?>
 ```
   
