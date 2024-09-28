@@ -1,5 +1,5 @@
-<details>  
-<summary>API参考</summary>  
+<details style="border: 1px solid #ccc; padding: 10px; margin-bottom: 20px;">  
+<summary style="font-weight: bold; cursor: pointer;">API参考</summary>  
   
 对于服务提供的所有操作：
 
@@ -108,7 +108,6 @@ print(result["categories"])
 ```
   
 </details>
-
 <details>  
 <summary>C++</summary>  
   
@@ -178,7 +177,6 @@ int main() {
 ```
   
 </details>
-
 <details>  
 <summary>Java</summary>  
   
@@ -241,7 +239,6 @@ public class Main {
 ``` 
   
 </details>
-
 <details>  
 <summary>Go</summary>  
   
@@ -330,7 +327,6 @@ func main() {
 ``` 
   
 </details>
-
 <details>  
 <summary>C#</summary>  
   
@@ -380,7 +376,6 @@ class Program
 ```
   
 </details>
-
 <details>  
 <summary>Node.js</summary>  
   
@@ -426,7 +421,6 @@ axios.request(config)
 ```
   
 </details>
-
 <details>  
 <summary>PHP</summary>  
   
@@ -459,17 +453,4 @@ print_r($result["categories"]);
 ```
   
 </details>
-
 </details>
-
-<style>  
-details summary {  
-    cursor: pointer; 
-    user-select: none; 
-    font-weight: bold;
-}  
-  
-details details {  
-    margin-left: 20px;
-}  
-</style>
