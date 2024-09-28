@@ -1,5 +1,5 @@
-<details style="border: 1px solid #ccc; padding: 10px; margin-bottom: 20px;">  
-<summary style="font-weight: bold; cursor: pointer;">API参考</summary>  
+<details>  
+<summary>API参考</summary>  
   
 对于服务提供的所有操作：
 
@@ -177,6 +177,7 @@ int main() {
 ```
   
 </details>
+
 <details>  
 <summary>Java</summary>  
   
@@ -239,6 +240,7 @@ public class Main {
 ``` 
   
 </details>
+
 <details>  
 <summary>Go</summary>  
   
@@ -327,6 +329,7 @@ func main() {
 ``` 
   
 </details>
+
 <details>  
 <summary>C#</summary>  
   
@@ -376,6 +379,7 @@ class Program
 ```
   
 </details>
+
 <details>  
 <summary>Node.js</summary>  
   
@@ -453,4 +457,5 @@ print_r($result["categories"]);
 ```
   
 </details>
+
 </details>

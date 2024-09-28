@@ -475,15 +475,3 @@ print_r($result["instances"]);
 </details>
 
 </details>
-
-<style>  
-details summary {  
-    cursor: pointer; 
-    user-select: none; 
-    font-weight: bold;
-}  
-  
-details details {  
-    margin-left: 20px;
-}  
-</style>
