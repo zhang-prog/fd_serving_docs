@@ -28,6 +28,6 @@ paddlex \  <br/>
     <span style="color: red;">--serial_number {序列号}</span> 
 </blockquote>
 
-<style>
+<style type="text/css">
 span {color:red;}
 </style>
