@@ -83,7 +83,7 @@ assert response.status_code == 200
 result = response.json()["result"]
 with open(output_image_path, "wb") as f:
     f.write(base64.b64decode(result["image"]))
-print(f"Output image saved to  {output_image_path}")
+print(f"Output image saved at  {output_image_path}")
 print(f"label: {result['label']}, score: {result['score']}")
 ```
   
@@ -139,7 +139,7 @@ int main() {
         if (outputImage.is_open()) {
             outputImage.write(reinterpret_cast<char*>(decodedImage.data()), decodedImage.size());
             outputImage.close();
-            std::cout << "Output image saved to " << outputImagePath << std::endl;
+            std::cout << "Output image saved at " << outputImagePath << std::endl;
         } else {
             std::cerr << "Unable to open file for writing: " << outputImagePath << std::endl;
         }
@@ -207,7 +207,7 @@ public class Main {
                 try (FileOutputStream fos = new FileOutputStream(outputImagePath)) {
                     fos.write(imageBytes);
                 }
-                System.out.println("Output image saved to " + outputImagePath);
+                System.out.println("Output image saved at " + outputImagePath);
                 System.out.println("label: " + result.get("label").asText() + ", score: " + result.get("score").asText());
             } else {
                 System.err.println("Request failed with code: " + response.code());
@@ -300,7 +300,7 @@ func main() {
 		fmt.Println("Error writing image to file:", err)
 		return
 	}
-	fmt.Printf("Image saved to %s.jpg\n", outputImagePath)
+	fmt.Printf("Image saved at %s.jpg\n", outputImagePath)
 	fmt.Printf("label: %s, score: %s\n", respData.Result.Label, respData.Result.Score)
 }
 ```
@@ -348,7 +348,7 @@ class Program
         string base64Image = jsonResponse["result"]["image"].ToString();
         byte[] outputImageBytes = Convert.FromBase64String(base64Image);
         File.WriteAllBytes(outputImagePath, outputImageBytes);
-        Console.WriteLine($"Output image saved to {outputImagePath}");
+        Console.WriteLine($"Output image saved at {outputImagePath}");
 
         string label = jsonResponse["result"]["label"].ToString();
         string score = jsonResponse["result"]["score"].ToString();
@@ -393,7 +393,7 @@ axios.request(config)
     const imageBuffer = Buffer.from(result["image"], 'base64');
     fs.writeFile(outputImagePath, imageBuffer, (err) => {
       if (err) throw err;
-      console.log(`Output image saved to ${outputImagePath}`);
+      console.log(`Output image saved at ${outputImagePath}`);
     });
 
     console.log(`label: ${result["image"]}, score: ${result["score"]}`);
@@ -432,7 +432,7 @@ curl_close($ch);
 $result = json_decode($response, true)["result"];
 
 file_put_contents($output_image_path, base64_decode($result["image"]));
-echo "Output image saved to " . $output_image_path . "\n";
+echo "Output image saved at " . $output_image_path . "\n";
 echo "label: " . $result["label"] . ", score: " . $result["score"];
 
 ?>

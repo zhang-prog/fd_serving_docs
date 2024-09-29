@@ -115,7 +115,7 @@ assert response.status_code == 200
 result = response.json()["result"]
 with open(output_image_path, "wb") as file:
     file.write(base64.b64decode(result["image"]))
-print(f"Output image saved to {output_image_path}")
+print(f"Output image saved at {output_image_path}")
 print("\nInstances:")
 print(result["instances"])
 ```
@@ -171,7 +171,7 @@ int main() {
         if (outputImage.is_open()) {
             outputImage.write(reinterpret_cast<char*>(decodedImage.data()), decodedImage.size());
             outputImage.close();
-            std::cout << "Output image saved to " << outPutImagePath << std::endl;
+            std::cout << "Output image saved at " << outPutImagePath << std::endl;
         } else {
             std::cerr << "Unable to open file for writing: " << outPutImagePath << std::endl;
         }
@@ -243,7 +243,7 @@ public class Main {
                 try (FileOutputStream fos = new FileOutputStream(outputImagePath)) {
                     fos.write(imageBytes);
                 }
-                System.out.println("Output image saved to " + outputImagePath);
+                System.out.println("Output image saved at " + outputImagePath);
                 System.out.println("\nInstances: " + instances.toString());
             } else {
                 System.err.println("Request failed with code: " + response.code());
@@ -334,7 +334,7 @@ func main() {
 		fmt.Println("Error writing image to file:", err)
 		return
 	}
-	fmt.Printf("Image saved to %s.jpg\n", outputImagePath)
+	fmt.Printf("Image saved at %s.jpg\n", outputImagePath)
 	fmt.Println("\nInstances:")
 	for _, category := range respData.Result.Instances {
 		fmt.Println(category)
@@ -385,7 +385,7 @@ class Program
         byte[] outputImageBytes = Convert.FromBase64String(base64Image);
 
         File.WriteAllBytes(outputImagePath, outputImageBytes);
-        Console.WriteLine($"Output image saved to {outputImagePath}");
+        Console.WriteLine($"Output image saved at {outputImagePath}");
         Console.WriteLine("\nInstances:");
         Console.WriteLine(jsonResponse["result"]["instances"].ToString());
     }
@@ -428,7 +428,7 @@ axios.request(config)
     const imageBuffer = Buffer.from(result["image"], 'base64');
     fs.writeFile(outputImagePath, imageBuffer, (err) => {
       if (err) throw err;
-      console.log(`Output image saved to ${outputImagePath}`);
+      console.log(`Output image saved at ${outputImagePath}`);
     });
     console.log("\nInstances:");
     console.log(result["instances"]);
@@ -465,7 +465,7 @@ curl_close($ch);
 // 处理接口返回数据
 $result = json_decode($response, true)["result"];
 file_put_contents($output_image_path, base64_decode($result["image"]));
-echo "Output image saved to " . $output_image_path . "\n";
+echo "Output image saved at " . $output_image_path . "\n";
 echo "\nInstances:\n";
 print_r($result["instances"]);
 

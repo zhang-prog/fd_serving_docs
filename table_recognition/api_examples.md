@@ -46,47 +46,15 @@
         |名称|类型|含义|
         |-|-|-|
         |`tables`|`array`|表格位置和内容。|
-        |`tableImage`|`string`|表格识别结果图。图像为JPEG格式，使用Base64编码。|
+        |`layoutImage`|`string`|版面分析结果图。图像为JPEG格式，使用Base64编码。|
         |`ocrImage`|`string`|OCR结果图。图像为JPEG格式，使用Base64编码。|
 
         `tables`中的每个元素为一个`object`，具有如下属性：
 
         |名称|类型|含义|
         |-|-|-|
-        |`bbox`|`array`|表格位置。数组中元素依次为边界框左上角坐标、右上角坐标、右下角坐标以及左下角坐标。|
+        |`bbox`|`array`|表格位置。数组中元素依次为边界框左上角x坐标、左上角y坐标、右下角x坐标以及右下角y坐标。|
         |`html`|`string`|HTML格式的表格识别结果。|
-
-        `result`示例如下：
-
-        ```json
-        {
-          "tables": [
-            {
-              "bbox": [
-                [
-                  147,
-                  154
-                ],
-                [
-                  2788,
-                  154
-                ],
-                [
-                  2788,
-                  1868
-                ],
-                [
-                  147,
-                  1868
-                ]
-              ],
-              "html": "<html>xxxxxx</html>"
-            }
-          ],
-          "tableImage": "xxxxxx",
-          "ocrImage": "xxxxxx"
-        }
-        ```
 
 </details>
 
@@ -103,7 +71,7 @@ import requests
 API_URL = "http://localhost:8080/table-recognition" # 服务URL
 image_path = "./demo.jpg"
 ocr_image_path = "./ocr.jpg"
-table_image_path = "./table.jpg"
+layout_image_path = "./table.jpg"
 
 # 对本地图像进行Base64编码
 with open(image_path, "rb") as file:
@@ -120,10 +88,10 @@ assert response.status_code == 200
 result = response.json()["result"]
 with open(ocr_image_path, "wb") as file:
     file.write(base64.b64decode(result["ocrImage"]))
-print(f"Output image saved to {ocr_image_path}")
-with open(table_image_path, "wb") as file:
-    file.write(base64.b64decode(result["tableImage"]))
-print(f"Output image saved to {table_image_path}")
+print(f"Output image saved at {ocr_image_path}")
+with open(layout_image_path, "wb") as file:
+    file.write(base64.b64decode(result["layoutImage"]))
+print(f"Output image saved at {layout_image_path}")
 print("\nDetected tables:")
 print(result["tables"])
 ```
@@ -143,7 +111,7 @@ int main() {
     httplib::Client client("localhost:8080");
     const std::string imagePath = "./demo.jpg";
     const std::string ocrImagePath = "./ocr.jpg";
-    const std::string tableImagePath = "./table.jpg";
+    const std::string layoutImagePath = "./table.jpg";
 
     httplib::Headers headers = {
         {"Content-Type", "application/json"}
@@ -180,21 +148,21 @@ int main() {
         if (outputOcrFile.is_open()) {
             outputOcrFile.write(reinterpret_cast<char*>(decodedOcrImage.data()), decodedOcrImage.size());
             outputOcrFile.close();
-            std::cout << "Output image saved to " << ocrImagePath << std::endl;
+            std::cout << "Output image saved at " << ocrImagePath << std::endl;
         } else {
             std::cerr << "Unable to open file for writing: " << ocrImagePath << std::endl;
         }
 
-        encodedImage = result["tableImage"];
+        encodedImage = result["layoutImage"];
         decodedString = base64::from_base64(encodedImage);
         std::vector<unsigned char> decodedTableImage(decodedString.begin(), decodedString.end());
-        std::ofstream outputTableFile(tableImagePath, std::ios::binary | std::ios::out);
+        std::ofstream outputTableFile(layoutImagePath, std::ios::binary | std::ios::out);
         if (outputTableFile.is_open()) {
             outputTableFile.write(reinterpret_cast<char*>(decodedTableImage.data()), decodedTableImage.size());
             outputTableFile.close();
-            std::cout << "Output image saved to " << tableImagePath << std::endl;
+            std::cout << "Output image saved at " << layoutImagePath << std::endl;
         } else {
-            std::cerr << "Unable to open file for writing: " << tableImagePath << std::endl;
+            std::cerr << "Unable to open file for writing: " << layoutImagePath << std::endl;
         }
 
         auto tables = result["tables"];
@@ -232,7 +200,7 @@ public class Main {
         String API_URL = "https://localhost:8080/table-recognition"; // 服务URL
         String imagePath = "./demo.jpg"; // 本地图像
         String ocrImagePath = "./ocr.jpg";
-        String tableImagePath = "./table.jpg";
+        String layoutImagePath = "./table.jpg";
 
         // 对本地图像进行Base64编码
         File file = new File(imagePath);
@@ -259,20 +227,20 @@ public class Main {
                 JsonNode resultNode = objectMapper.readTree(responseBody);
                 JsonNode result = resultNode.get("result");
                 String ocrBase64Image = result.get("ocrImage").asText();
-                String tableBase64Image = result.get("tableImage").asText();
+                String layoutBase64Image = result.get("layoutImage").asText();
                 JsonNode tables = result.get("tables");
 
                 byte[] imageBytes = Base64.getDecoder().decode(ocrBase64Image);
                 try (FileOutputStream fos = new FileOutputStream(ocrImagePath)) {
                     fos.write(imageBytes);
                 }
-                System.out.println("Output image saved to " + ocrBase64Image);
+                System.out.println("Output image saved at " + ocrBase64Image);
 
-                imageBytes = Base64.getDecoder().decode(tableBase64Image);
-                try (FileOutputStream fos = new FileOutputStream(tableImagePath)) {
+                imageBytes = Base64.getDecoder().decode(layoutBase64Image);
+                try (FileOutputStream fos = new FileOutputStream(layoutImagePath)) {
                     fos.write(imageBytes);
                 }
-                System.out.println("Output image saved to " + tableImagePath);
+                System.out.println("Output image saved at " + layoutImagePath);
 
                 System.out.println("\nDetected tables: " + tables.toString());
             } else {
@@ -304,7 +272,7 @@ func main() {
 	API_URL := "https://localhost:8080/table-recognition"
 	imagePath := "./demo.jpg"
 	ocrImagePath := "./ocr.jpg"
-	tableImagePath := "./table.jpg"
+	layoutImagePath := "./table.jpg"
 
 	// 对本地图像进行Base64编码
 	imageBytes, err := ioutil.ReadFile(imagePath)
@@ -345,7 +313,7 @@ func main() {
 	type Response struct {
 		Result struct {
 			OcrImage      string   `json:"ocrImage"`
-            TableImage      string   `json:"tableImage"`
+            TableImage      string   `json:"layoutImage"`
 			Tables []map[string]interface{} `json:"tables"`
 		} `json:"result"`
 	}
@@ -366,19 +334,19 @@ func main() {
 		fmt.Println("Error writing image to file:", err)
 		return
 	}
-    fmt.Printf("Image saved to %s.jpg\n", ocrImagePath)
+    fmt.Printf("Image saved at %s.jpg\n", ocrImagePath)
 
-    tableImageData, err := base64.StdEncoding.DecodeString(respData.Result.TableImage)
+    layoutImageData, err := base64.StdEncoding.DecodeString(respData.Result.TableImage)
 	if err != nil {
 		fmt.Println("Error decoding base64 image data:", err)
 		return
 	}
-	err = ioutil.WriteFile(tableImagePath, tableImageData, 0644)
+	err = ioutil.WriteFile(layoutImagePath, layoutImageData, 0644)
 	if err != nil {
 		fmt.Println("Error writing image to file:", err)
 		return
 	}
-    fmt.Printf("Image saved to %s.jpg\n", tableImagePath)
+    fmt.Printf("Image saved at %s.jpg\n", layoutImagePath)
 
 	fmt.Println("\nDetected tables:")
 	for _, category := range respData.Result.Tables {
@@ -406,7 +374,7 @@ class Program
     static readonly string API_URL = "https://localhost:8080/table-recognition";
     static readonly string imagePath = "./demo.jpg";
     static readonly string ocrImagePath = "./ocr.jpg";
-    static readonly string tableImagePath = "./table.jpg";
+    static readonly string layoutImagePath = "./table.jpg";
 
     static async Task Main(string[] args)
     {
@@ -430,12 +398,12 @@ class Program
         string ocrBase64Image = jsonResponse["result"]["ocrImage"].ToString();
         byte[] ocrImageBytes = Convert.FromBase64String(ocrBase64Image);
         File.WriteAllBytes(ocrImagePath, ocrImageBytes);
-        Console.WriteLine($"Output image saved to {ocrImagePath}");
+        Console.WriteLine($"Output image saved at {ocrImagePath}");
 
-        string tableBase64Image = jsonResponse["result"]["tableImage"].ToString();
-        byte[] tableImageBytes = Convert.FromBase64String(tableBase64Image);
-        File.WriteAllBytes(tableImagePath, tableImageBytes);
-        Console.WriteLine($"Output image saved to {tableImagePath}");
+        string layoutBase64Image = jsonResponse["result"]["layoutImage"].ToString();
+        byte[] layoutImageBytes = Convert.FromBase64String(layoutBase64Image);
+        File.WriteAllBytes(layoutImagePath, layoutImageBytes);
+        Console.WriteLine($"Output image saved at {layoutImagePath}");
 
         Console.WriteLine("\nDetected tables:");
         Console.WriteLine(jsonResponse["result"]["tables"].ToString());
@@ -455,7 +423,7 @@ const fs = require('fs');
 const API_URL = 'https://localhost:8080/table-recognition'
 const imagePath = './demo.jpg'
 const ocrImagePath = "./ocr.jpg";
-const tableImagePath = "./table.jpg";
+const layoutImagePath = "./table.jpg";
 
 let config = {
    method: 'POST',
@@ -481,13 +449,13 @@ axios.request(config)
     const imageBuffer = Buffer.from(result["ocrImage"], 'base64');
     fs.writeFile(ocrImagePath, imageBuffer, (err) => {
       if (err) throw err;
-      console.log(`Output image saved to ${ocrImagePath}`);
+      console.log(`Output image saved at ${ocrImagePath}`);
     });
 
-    imageBuffer = Buffer.from(result["tableImage"], 'base64');
-    fs.writeFile(tableImagePath, imageBuffer, (err) => {
+    imageBuffer = Buffer.from(result["layoutImage"], 'base64');
+    fs.writeFile(layoutImagePath, imageBuffer, (err) => {
       if (err) throw err;
-      console.log(`Output image saved to ${tableImagePath}`);
+      console.log(`Output image saved at ${layoutImagePath}`);
     });
 
     console.log("\nDetected tables:");
@@ -509,7 +477,7 @@ axios.request(config)
 $API_URL = "http://localhost:8080/table-recognition"; // 服务URL
 $image_path = "./demo.jpg";
 $ocr_image_path = "./ocr.jpg";
-$table_image_path = "./table.jpg";
+$layout_image_path = "./table.jpg";
 
 // 对本地图像进行Base64编码
 $image_data = base64_encode(file_get_contents($image_path));
@@ -526,10 +494,10 @@ curl_close($ch);
 // 处理接口返回数据
 $result = json_decode($response, true)["result"];
 file_put_contents($ocr_image_path, base64_decode($result["ocrImage"]));
-echo "Output image saved to " . $ocr_image_path . "\n";
+echo "Output image saved at " . $ocr_image_path . "\n";
 
-file_put_contents($table_image_path, base64_decode($result["tableImage"]));
-echo "Output image saved to " . $table_image_path . "\n";
+file_put_contents($layout_image_path, base64_decode($result["layoutImage"]));
+echo "Output image saved at " . $layout_image_path . "\n";
 
 echo "\nDetected tables:\n";
 print_r($result["tables"]);

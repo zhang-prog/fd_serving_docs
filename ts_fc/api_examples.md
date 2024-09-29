@@ -82,10 +82,10 @@ assert response.status_code == 200
 result = response.json()["result"]
 with open(output_image_path, "wb") as f:
     f.write(base64.b64decode(result["image"]))
-print(f"Output image saved to  {output_image_path}")
+print(f"Output image saved at  {output_image_path}")
 with open(output_csv_path, "wb") as f:
     f.write(base64.b64decode(result["csv"]))
-print(f"Output time-series data saved to  {output_csv_path}")
+print(f"Output time-series data saved at  {output_csv_path}")
 ```
   
 </details>
@@ -141,7 +141,7 @@ int main() {
         if (outputImage.is_open()) {
             outputImage.write(reinterpret_cast<char*>(decodedImage.data()), decodedImage.size());
             outputImage.close();
-            std::cout << "Output image saved to " << outPutImagePath << std::endl;
+            std::cout << "Output image saved at " << outPutImagePath << std::endl;
         } else {
             std::cerr << "Unable to open file for writing: " << outPutImagePath << std::endl;
         }
@@ -154,7 +154,7 @@ int main() {
         if (outputCsv.is_open()) {
             outputCsv.write(reinterpret_cast<char*>(decodedCsv.data()), decodedCsv.size());
             outputCsv.close();
-            std::cout << "Output time-series data saved to " << outputCsvPath << std::endl;
+            std::cout << "Output time-series data saved at " << outputCsvPath << std::endl;
         } else {
             std::cerr << "Unable to open file for writing: " << outputCsvPath << std::endl;
         }
@@ -222,7 +222,7 @@ public class Main {
                 try (FileOutputStream fos = new FileOutputStream(outputImagePath)) {
                     fos.write(imageBytes);
                 }
-                System.out.println("Output image saved to " + outputImagePath);
+                System.out.println("Output image saved at " + outputImagePath);
 
                 // 保存返回的数据
                 String base64Csv = result.get("csv").asText();
@@ -230,7 +230,7 @@ public class Main {
                 try (FileOutputStream fos = new FileOutputStream(outputCsvPath)) {
                     fos.write(csvBytes);
                 }
-                System.out.println("Output time-series data saved to " + outputCsvPath);
+                System.out.println("Output time-series data saved at " + outputCsvPath);
             } else {
                 System.err.println("Request failed with code: " + response.code());
             }
@@ -322,7 +322,7 @@ func main() {
 		fmt.Println("Error writing image to file:", err)
 		return
 	}
-	fmt.Printf("Image saved to %s.jpg\n", outputImagePath)
+	fmt.Printf("Image saved at %s.jpg\n", outputImagePath)
 
 	// 将Base64编码的csv数据解码并保存为文件
 	outputCsvData, err := base64.StdEncoding.DecodeString(respData.Result.Csv)
@@ -335,7 +335,7 @@ func main() {
 		fmt.Println("Error writing image to file:", err)
 		return
 	}
-	fmt.Printf("Output time-series data saved to %s.csv", outputCsvPath)
+	fmt.Printf("Output time-series data saved at %s.csv", outputCsvPath)
 }
 ```
   
@@ -383,13 +383,13 @@ class Program
         string base64Image = jsonResponse["result"]["image"].ToString();
         byte[] outputImageBytes = Convert.FromBase64String(base64Image);
         File.WriteAllBytes(outputImagePath, outputImageBytes);
-        Console.WriteLine($"Output image saved to {outputImagePath}");
+        Console.WriteLine($"Output image saved at {outputImagePath}");
 
         // 保存csv文件
         string base64Csv = jsonResponse["result"]["csv"].ToString();
         byte[] outputCsvBytes = Convert.FromBase64String(base64Csv);
         File.WriteAllBytes(outputCsvPath, outputCsvBytes);
-        Console.WriteLine($"Output time-series data saved to {outputCsvPath}");
+        Console.WriteLine($"Output time-series data saved at {outputCsvPath}");
     }
 }
 ```
@@ -431,14 +431,14 @@ axios.request(config)
     const imageBuffer = Buffer.from(result["image"], 'base64');
     fs.writeFile(outputImagePath, imageBuffer, (err) => {
       if (err) throw err;
-      console.log(`Output image saved to ${outputImagePath}`);
+      console.log(`Output image saved at ${outputImagePath}`);
     });
 
     // 保存csv文件
     const csvBuffer = Buffer.from(result["csv"], 'base64');
     fs.writeFile(outputCsvPath, csvBuffer, (err) => {
       if (err) throw err;
-      console.log(`Output time-series data saved to ${outputCsvPath}`);
+      console.log(`Output time-series data saved at ${outputCsvPath}`);
     });
 })
 .catch((error) => {
@@ -475,9 +475,9 @@ curl_close($ch);
 $result = json_decode($response, true)["result"];
 
 file_put_contents($output_image_path, base64_decode($result["image"]));
-echo "Output image saved to " . $output_image_path . "\n";
+echo "Output image saved at " . $output_image_path . "\n";
 file_put_contents($output_csv_path, base64_decode($result["csv"]));
-echo "Output time-series data saved to " . $output_csv_path . "\n";
+echo "Output time-series data saved at " . $output_csv_path . "\n";
 
 ?>
 ```
