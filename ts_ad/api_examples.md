@@ -62,7 +62,7 @@
 import base64
 import requests
 
-API_URL = "https://localhost:8080/time-series-anomaly-detection" # 服务URL
+API_URL = "http://localhost:8080/time-series-anomaly-detection" # 服务URL
 csv_path = "./test.csv"
 output_image_path = "./out.jpg"
 output_csv_path = "./out.csv"
@@ -186,7 +186,7 @@ import java.util.Base64;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        String API_URL = "https://localhost:8080/time-series-anomaly-detection";
+        String API_URL = "http://localhost:8080/time-series-anomaly-detection";
         String csvPath = "./test.csv";
         String outputImagePath = "./out.jpg";
         String outputCsvPath = "./out.csv";
@@ -257,7 +257,7 @@ import (
 )
 
 func main() {
-	API_URL := "https://localhost:8080/time-series-anomaly-detection"
+	API_URL := "http://localhost:8080/time-series-anomaly-detection"
 	csvPath := "./test.csv";
 	outputImagePath := "./out.jpg"
 	outputCsvPath := "./out.csv";
@@ -355,7 +355,7 @@ using Newtonsoft.Json.Linq;
 
 class Program
 {
-    static readonly string API_URL = "https://localhost:8080/time-series-anomaly-detection";
+    static readonly string API_URL = "http://localhost:8080/time-series-anomaly-detection";
     static readonly string csvPath = "./test.csv";
     static readonly string outputImagePath = "./out.jpg";
     static readonly string outputCsvPath = "./out.csv";
@@ -403,7 +403,7 @@ class Program
 const axios = require('axios');
 const fs = require('fs');
 
-const API_URL = 'https://localhost:8080/time-series-anomaly-detection'
+const API_URL = 'http://localhost:8080/time-series-anomaly-detection'
 const csvPath = "./test.csv";
 const outputImagePath = './out.jpg'
 const outputCsvPath = "./out.csv";
@@ -454,7 +454,7 @@ axios.request(config)
 ```php
 <?php
 
-$API_URL = "https://localhost:8080/time-series-anomaly-detection"; // 服务URL
+$API_URL = "http://localhost:8080/time-series-anomaly-detection"; // 服务URL
 $csv_path = "./test.csv";
 $output_image_path = "./out.jpg";
 $output_csv_path = "./out.csv";

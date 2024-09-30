@@ -34,9 +34,9 @@
         |-|-|-|-|
         |`image`|`string`|服务可访问的图像文件或PDF文件的URL，或上述类型文件内容的Base64编码结果。对于超过10页的PDF文件，只有前10页的内容会被使用。|是|
         |`fileType`|`integer`|文件类型。`0`表示PDF文件，`1`表示图像文件。若请求体无此属性，则服务将尝试根据URL自动推断文件类型。|否|
-        |`useOricls`|`boolean`|是否启用方向判断功能。默认启用该功能。|否|
-        |`useCurve`|`boolean`|是否启用弯曲文本检测功能。默认启用该功能。|否|
-        |`useUvdoc`|`boolean`|是否启用版面矫正功能。默认启用该功能。|否|
+        |`useOricls`|`boolean`|是否启用文档图像方向分类功能。默认启用该功能。|否|
+        |`useCurve`|`boolean`|是否启用印章文本检测功能。默认启用该功能。|否|
+        |`useUvdoc`|`boolean`|是否启用文本图像矫正功能。默认启用该功能。|否|
         |`inferenceParams`|`object`|推理参数。|否|
 
         `inferenceParams`的属性如下：
@@ -59,8 +59,8 @@
         |`texts`|`array`|文本位置、内容和得分。|
         |`tables`|`array`|表格位置和内容。|
         |`inputImage`|`string`|输入图像。图像为JPEG格式，使用Base64编码。|
-        |`ocrImage`|`string`|OCR结果图，其中标注检测到的文本位置。图像为JPEG格式，使用Base64编码。|
-        |`layoutImage`|`string`|版面分析结果图，其中标注检测到的文本位置。图像为JPEG格式，使用Base64编码。|
+        |`ocrImage`|`string`|OCR结果图。图像为JPEG格式，使用Base64编码。|
+        |`layoutImage`|`string`|版面区域检测结果图。图像为JPEG格式，使用Base64编码。|
 
         `texts`中的每个元素为一个`object`，具有如下属性：
 

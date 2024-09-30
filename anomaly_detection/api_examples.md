@@ -38,7 +38,7 @@
 
         |名称|类型|含义|
         |-|-|-|
-        |`labelMap`|`array`|记录图像中每个像素的类别标签（按照行优先顺序排列）。|
+        |`labelMap`|`array`|记录图像中每个像素的类别标签（按照行优先顺序排列）。其中`255`表示异常点，`0`表示非异常点。|
         |`size`|`array`|图像形状。数组中元素依次为图像的高度和宽度。|
         |`image`|`string`|异常检测结果图。图像为JPEG格式，使用Base64编码。|
 
@@ -49,8 +49,8 @@
           "labelMap": [
             0,
             0,
-            1,
-            2
+            255,
+            0
           ],
           "size": [
             2,
@@ -178,7 +178,7 @@ import java.util.Base64;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        String API_URL = "https://localhost:8080/anomaly-detection"; // 服务URL
+        String API_URL = "http://localhost:8080/anomaly-detection"; // 服务URL
         String imagePath = "./demo.jpg"; // 本地图像
         String outputImagePath = "./out.jpg"; // 输出图像
 
@@ -241,7 +241,7 @@ import (
 )
 
 func main() {
-	API_URL := "https://localhost:8080/anomaly-detection"
+	API_URL := "http://localhost:8080/anomaly-detection"
 	imagePath := "./demo.jpg"
 	outputImagePath := "./out.jpg"
 
@@ -325,7 +325,7 @@ using Newtonsoft.Json.Linq;
 
 class Program
 {
-    static readonly string API_URL = "https://localhost:8080/anomaly-detection";
+    static readonly string API_URL = "http://localhost:8080/anomaly-detection";
     static readonly string imagePath = "./demo.jpg";
     static readonly string outputImagePath = "./out.jpg";
 
@@ -367,7 +367,7 @@ class Program
 const axios = require('axios');
 const fs = require('fs');
 
-const API_URL = 'https://localhost:8080/anomaly-detection'
+const API_URL = 'http://localhost:8080/anomaly-detection'
 const imagePath = './demo.jpg'
 const outputImagePath = "./out.jpg";
 

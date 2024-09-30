@@ -79,28 +79,6 @@
         }
         ```
 
-- **`legacyInfer`**（过时）
-
-    对图像进行目标检测。
-
-    `POST /objectdetection`
-
-    - 请求体的属性如下：
-
-        |名称|类型|含义|是否必填|
-        |-|-|-|-|
-        |`imageUrl`|`string`|服务可访问的图像文件的URL。与`image`互斥。|否|
-        |`image`|`string`|图像文件内容的Base64编码结果。与`imageUrl`互斥。|否|
-
-    - 请求处理成功时，响应体的`result`具有如下属性：
-
-        |名称|类型|含义|
-        |-|-|-|
-        |`bboxResult`|`array`|目标的位置、类别等信息。|
-        |`image`|`string`|目标检测结果图。图像为JPEG格式，使用Base64编码。|
-
-    - **该操作现已不被推荐使用。在新项目中，请使用`infer`操作。**
-
 </details>
 
 <details>
@@ -225,7 +203,7 @@ import java.util.Base64;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        String API_URL = "https://localhost:8080/object-detection"; // 服务URL
+        String API_URL = "http://localhost:8080/object-detection"; // 服务URL
         String imagePath = "./demo.jpg"; // 本地图像
         String outputImagePath = "./out.jpg"; // 输出图像
 
@@ -288,7 +266,7 @@ import (
 )
 
 func main() {
-	API_URL := "https://localhost:8080/object-detection"
+	API_URL := "http://localhost:8080/object-detection"
 	imagePath := "./demo.jpg"
 	outputImagePath := "./out.jpg"
 
@@ -375,7 +353,7 @@ using Newtonsoft.Json.Linq;
 
 class Program
 {
-    static readonly string API_URL = "https://localhost:8080/object-detection";
+    static readonly string API_URL = "http://localhost:8080/object-detection";
     static readonly string imagePath = "./demo.jpg";
     static readonly string outputImagePath = "./out.jpg";
 
@@ -418,7 +396,7 @@ class Program
 const axios = require('axios');
 const fs = require('fs');
 
-const API_URL = 'https://localhost:8080/object-detection'
+const API_URL = 'http://localhost:8080/object-detection'
 const imagePath = './demo.jpg'
 const outputImagePath = "./out.jpg";
 

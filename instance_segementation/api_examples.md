@@ -208,7 +208,7 @@ import java.util.Base64;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        String API_URL = "https://localhost:8080/instance-segmentation"; // 服务URL
+        String API_URL = "http://localhost:8080/instance-segmentation"; // 服务URL
         String imagePath = "./demo.jpg"; // 本地图像
         String outputImagePath = "./out.jpg"; // 输出图像
 
@@ -271,7 +271,7 @@ import (
 )
 
 func main() {
-	API_URL := "https://localhost:8080/instance-segmentation"
+	API_URL := "http://localhost:8080/instance-segmentation"
 	imagePath := "./demo.jpg"
 	outputImagePath := "./out.jpg"
 
@@ -358,7 +358,7 @@ using Newtonsoft.Json.Linq;
 
 class Program
 {
-    static readonly string API_URL = "https://localhost:8080/instance-segmentation";
+    static readonly string API_URL = "http://localhost:8080/instance-segmentation";
     static readonly string imagePath = "./demo.jpg";
     static readonly string outputImagePath = "./out.jpg";
 
@@ -401,7 +401,7 @@ class Program
 const axios = require('axios');
 const fs = require('fs');
 
-const API_URL = 'https://localhost:8080/instance-segmentation'
+const API_URL = 'http://localhost:8080/instance-segmentation'
 const imagePath = './demo.jpg'
 const outputImagePath = "./out.jpg";
 

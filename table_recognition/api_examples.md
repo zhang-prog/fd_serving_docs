@@ -46,7 +46,7 @@
         |名称|类型|含义|
         |-|-|-|
         |`tables`|`array`|表格位置和内容。|
-        |`layoutImage`|`string`|版面分析结果图。图像为JPEG格式，使用Base64编码。|
+        |`layoutImage`|`string`|版面区域检测结果图。图像为JPEG格式，使用Base64编码。|
         |`ocrImage`|`string`|OCR结果图。图像为JPEG格式，使用Base64编码。|
 
         `tables`中的每个元素为一个`object`，具有如下属性：
@@ -197,7 +197,7 @@ import java.util.Base64;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        String API_URL = "https://localhost:8080/table-recognition"; // 服务URL
+        String API_URL = "http://localhost:8080/table-recognition"; // 服务URL
         String imagePath = "./demo.jpg"; // 本地图像
         String ocrImagePath = "./ocr.jpg";
         String layoutImagePath = "./table.jpg";
@@ -269,7 +269,7 @@ import (
 )
 
 func main() {
-	API_URL := "https://localhost:8080/table-recognition"
+	API_URL := "http://localhost:8080/table-recognition"
 	imagePath := "./demo.jpg"
 	ocrImagePath := "./ocr.jpg"
 	layoutImagePath := "./table.jpg"
@@ -371,7 +371,7 @@ using Newtonsoft.Json.Linq;
 
 class Program
 {
-    static readonly string API_URL = "https://localhost:8080/table-recognition";
+    static readonly string API_URL = "http://localhost:8080/table-recognition";
     static readonly string imagePath = "./demo.jpg";
     static readonly string ocrImagePath = "./ocr.jpg";
     static readonly string layoutImagePath = "./table.jpg";
@@ -420,7 +420,7 @@ class Program
 const axios = require('axios');
 const fs = require('fs');
 
-const API_URL = 'https://localhost:8080/table-recognition'
+const API_URL = 'http://localhost:8080/table-recognition'
 const imagePath = './demo.jpg'
 const ocrImagePath = "./ocr.jpg";
 const layoutImagePath = "./table.jpg";

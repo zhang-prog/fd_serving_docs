@@ -64,7 +64,7 @@
 import base64
 import requests
 
-API_URL = "https://localhost:8080/time-series-classification" # 服务URL
+API_URL = "http://localhost:8080/time-series-classification" # 服务URL
 csv_path = "./test.csv"
 output_image_path = "./out.jpg"
 
@@ -172,7 +172,7 @@ import java.util.Base64;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        String API_URL = "https://localhost:8080/time-series-classification";
+        String API_URL = "http://localhost:8080/time-series-classification";
         String csvPath = "./test.csv";
         String outputImagePath = "./out.jpg";
 
@@ -235,7 +235,7 @@ import (
 )
 
 func main() {
-	API_URL := "https://localhost:8080/time-series-classification"
+	API_URL := "http://localhost:8080/time-series-classification"
 	csvPath := "./test.csv";
 	outputImagePath := "./out.jpg"
 
@@ -321,7 +321,7 @@ using Newtonsoft.Json.Linq;
 
 class Program
 {
-    static readonly string API_URL = "https://localhost:8080/time-series-classification";
+    static readonly string API_URL = "http://localhost:8080/time-series-classification";
     static readonly string csvPath = "./test.csv";
     static readonly string outputImagePath = "./out.jpg";
 
@@ -366,7 +366,7 @@ class Program
 const axios = require('axios');
 const fs = require('fs');
 
-const API_URL = 'https://localhost:8080/time-series-classification'
+const API_URL = 'http://localhost:8080/time-series-classification'
 const csvPath = "./test.csv";
 const outputImagePath = './out.jpg'
 
@@ -412,7 +412,7 @@ axios.request(config)
 ```php
 <?php
 
-$API_URL = "https://localhost:8080/time-series-classification"; // 服务URL
+$API_URL = "http://localhost:8080/time-series-classification"; // 服务URL
 $csv_path = "./test.csv";
 $output_image_path = "./out.jpg";
 
