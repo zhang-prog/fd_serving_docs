@@ -86,20 +86,13 @@ Interact with large language models to extract key information.
     |`llmName`|`string`|Name of the large language model.|No|
     |`llmParams`|`object`|API parameters for the large language model.|No|
 
-    Currently, `llmParams` can take one of the following two forms:
+    Currently, `llmParams` can take the following form:
 
     ```json
     {
       "apiType": "qianfan",
       "apiKey": "{Qianfan Platform API key}",
       "secretKey": "{Qianfan Platform secret key}"
-    }
-    ```
-
-    ```json
-    {
-      "apiType": "aistudio",
-      "accessToken": "{AI Studio Access Token}"
     }
     ```
 
