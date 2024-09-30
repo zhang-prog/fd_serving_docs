@@ -71,7 +71,7 @@ import requests
 API_URL = "http://localhost:8080/table-recognition" # 服务URL
 image_path = "./demo.jpg"
 ocr_image_path = "./ocr.jpg"
-layout_image_path = "./table.jpg"
+layout_image_path = "./layout.jpg"
 
 # 对本地图像进行Base64编码
 with open(image_path, "rb") as file:
@@ -111,7 +111,7 @@ int main() {
     httplib::Client client("localhost:8080");
     const std::string imagePath = "./demo.jpg";
     const std::string ocrImagePath = "./ocr.jpg";
-    const std::string layoutImagePath = "./table.jpg";
+    const std::string layoutImagePath = "./layout.jpg";
 
     httplib::Headers headers = {
         {"Content-Type", "application/json"}
@@ -200,7 +200,7 @@ public class Main {
         String API_URL = "http://localhost:8080/table-recognition"; // 服务URL
         String imagePath = "./demo.jpg"; // 本地图像
         String ocrImagePath = "./ocr.jpg";
-        String layoutImagePath = "./table.jpg";
+        String layoutImagePath = "./layout.jpg";
 
         // 对本地图像进行Base64编码
         File file = new File(imagePath);
@@ -272,7 +272,7 @@ func main() {
 	API_URL := "http://localhost:8080/table-recognition"
 	imagePath := "./demo.jpg"
 	ocrImagePath := "./ocr.jpg"
-	layoutImagePath := "./table.jpg"
+	layoutImagePath := "./layout.jpg"
 
 	// 对本地图像进行Base64编码
 	imageBytes, err := ioutil.ReadFile(imagePath)
@@ -374,7 +374,7 @@ class Program
     static readonly string API_URL = "http://localhost:8080/table-recognition";
     static readonly string imagePath = "./demo.jpg";
     static readonly string ocrImagePath = "./ocr.jpg";
-    static readonly string layoutImagePath = "./table.jpg";
+    static readonly string layoutImagePath = "./layout.jpg";
 
     static async Task Main(string[] args)
     {
@@ -423,7 +423,7 @@ const fs = require('fs');
 const API_URL = 'http://localhost:8080/table-recognition'
 const imagePath = './demo.jpg'
 const ocrImagePath = "./ocr.jpg";
-const layoutImagePath = "./table.jpg";
+const layoutImagePath = "./layout.jpg";
 
 let config = {
    method: 'POST',
@@ -477,7 +477,7 @@ axios.request(config)
 $API_URL = "http://localhost:8080/table-recognition"; // 服务URL
 $image_path = "./demo.jpg";
 $ocr_image_path = "./ocr.jpg";
-$layout_image_path = "./table.jpg";
+$layout_image_path = "./layout.jpg";
 
 // 对本地图像进行Base64编码
 $image_data = base64_encode(file_get_contents($image_path));

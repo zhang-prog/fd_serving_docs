@@ -240,8 +240,12 @@ if __name__ == "__main__":
     file_path = "./demo.jpg"
     keys = ["电话"]
 
+    with open(file_path, "rb") as file:
+        file_bytes = file.read()
+        file_data = base64.b64encode(file_bytes).decode("ascii")
+
     payload = {
-        "file": file_url,
+        "file": file_data,
         "useOricls": True,
         "useCurve": True,
         "useUvdoc": True,
